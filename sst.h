@@ -23,44 +23,44 @@
 #define NEVENTS (8)
 
 typedef struct {
-	int x;	/* Quadrant location of planet */
-	int y;
-	int pclass; /* class M, N, or O (1, 2, or 3) */
-	int crystals; /* has crystals */
-	int known;   /* =1 contents known, =2 shuttle on this planet */
+    int x;	/* Quadrant location of planet */
+    int y;
+    int pclass; /* class M, N, or O (1, 2, or 3) */
+    int crystals; /* has crystals */
+    int known;   /* =1 contents known, =2 shuttle on this planet */
 } PLANETS;
 
 EXTERN struct foo {
-		int snap,		// snapshot taken
-		remkl,			// remaining klingons
-	        remcom,			// remaining commanders
-		rembase,		// remaining bases
-		starkl,			// destroyed stars
-		basekl,			// destroyed bases
-		killk,			// Klingons killed
-		killc,			// commanders killed
-		galaxy[9][9], 	// The Galaxy (subscript 0 not used)
-		cx[11],cy[11],	// Commander quadrant coordinates
-		baseqx[6],		// Base quadrant X
-		baseqy[6],		// Base quadrant Y
-		newstuf[9][9],	// Extended galaxy goodies
-		isx, isy,		// Coordinate of Super Commander
-		nscrem,			// remaining super commanders
-		nromkl,			// Romulans killed
-		nromrem,		// Romulans remaining
-		nsckill,		// super commanders killed
-		nplankl;		// destroyed planets
-	PLANETS plnets[PLNETMAX+1];  // Planet information
+    int snap,		// snapshot taken
+        remkl,			// remaining klingons
+        remcom,			// remaining commanders
+        rembase,		// remaining bases
+        starkl,			// destroyed stars
+        basekl,			// destroyed bases
+        killk,			// Klingons killed
+        killc,			// commanders killed
+        galaxy[9][9], 	// The Galaxy (subscript 0 not used)
+        cx[11],cy[11],	// Commander quadrant coordinates
+        baseqx[6],		// Base quadrant X
+        baseqy[6],		// Base quadrant Y
+        newstuf[9][9],	// Extended galaxy goodies
+        isx, isy,		// Coordinate of Super Commander
+        nscrem,			// remaining super commanders
+        nromkl,			// Romulans killed
+        nromrem,		// Romulans remaining
+        nsckill,		// super commanders killed
+        nplankl;		// destroyed planets
+    PLANETS plnets[PLNETMAX+1];  // Planet information
 #ifdef CAPTURE
     int kcaptured, brigfree;
 #endif
-	double date,		// stardate
-		remres,			// remaining resources
-	    remtime;		// remaining time
+    double date,		// stardate
+           remres,			// remaining resources
+           remtime;		// remaining time
 } dsst, snapsht;			// Data that is snapshot
 
 EXTERN char
-		quadsst[11][11];	// contents of our quadrant
+quadsst[11][11];	// contents of our quadrant
 
 // Scalar variables that are needed for freezing the game
 // are placed in a structure. #defines are used to access by their
@@ -68,103 +68,103 @@ EXTERN char
 // but I just didn't think of it back when I started.
 
 EXTERN struct foo2 {
-	int inkling,
-	inbase,
-	incom,
-	instar,
-	intorps,
-	condit,
-	torps,
-	ship,
-	quadx,
-	quady,
-	sectx,
-	secty,
-	length,
-	skill,
-	basex,
-	basey,
-	klhere,
-	comhere,
-	casual,
-	nhelp,
-	nkinks,
-	ididit,
-	gamewon,
-	alive,
-	justin,
-	alldone,
-	shldchg,
-	thingx,
-	thingy,
-	plnetx,
-	plnety,
-	inorbit,
-	landed,
-	iplnet,
-	imine,
-	inplan,
-	nenhere,
-	ishere,
-	neutz,
-	irhere,
-	icraft,
-	ientesc,
-	iscraft,
-	isatb,
-	iscate,
+    int inkling,
+        inbase,
+        incom,
+        instar,
+        intorps,
+        condit,
+        torps,
+        ship,
+        quadx,
+        quady,
+        sectx,
+        secty,
+        length,
+        skill,
+        basex,
+        basey,
+        klhere,
+        comhere,
+        casual,
+        nhelp,
+        nkinks,
+        ididit,
+        gamewon,
+        alive,
+        justin,
+        alldone,
+        shldchg,
+        thingx,
+        thingy,
+        plnetx,
+        plnety,
+        inorbit,
+        landed,
+        iplnet,
+        imine,
+        inplan,
+        nenhere,
+        ishere,
+        neutz,
+        irhere,
+        icraft,
+        ientesc,
+        iscraft,
+        isatb,
+        iscate,
 #ifdef DEBUG
-	idebug,
+        idebug,
 #endif
 #ifdef CLOAKING
-    iscloaked,
-    iscloaking,
-    ncviol,
-    isviolreported,
+        iscloaked,
+        iscloaking,
+        ncviol,
+        isviolreported,
 #endif
 #ifdef CAPTURE
-    brigcapacity,
+        brigcapacity,
 #endif
-	iattak,
-	icrystl,
-	tourn,
-	thawed,
-	batx,
-	baty,
-	ithere,
-	ithx,
-	ithy,
-	iseenit,
-	probecx,
-	probecy,
-	proben,
-	isarmed,
-	nprobes;
+        iattak,
+        icrystl,
+        tourn,
+        thawed,
+        batx,
+        baty,
+        ithere,
+        ithx,
+        ithy,
+        iseenit,
+        probecx,
+        probecy,
+        proben,
+        isarmed,
+        nprobes;
 
-	double inresor,
-	intime,
-	inenrg,
-	inshld,
-	inlsr,
-	indate,
-	energy,
-	shield,
-	shldup,
-	warpfac,
-	wfacsq,
-	lsupres,
-	dist,
-	direc,
-	Time,
-	docfac,
-	resting,
-	damfac,
-	stdamtim,
-	cryprob,
-	probex,
-	probey,
-	probeinx,
-	probeiny;
+    double inresor,
+           intime,
+           inenrg,
+           inshld,
+           inlsr,
+           indate,
+           energy,
+           shield,
+           shldup,
+           warpfac,
+           wfacsq,
+           lsupres,
+           dist,
+           direc,
+           Time,
+           docfac,
+           resting,
+           damfac,
+           stdamtim,
+           cryprob,
+           probex,
+           probey,
+           probeinx,
+           probeiny;
 } a;
 
 #define inkling a.inkling		// Initial number of klingons
@@ -267,35 +267,35 @@ EXTERN struct foo2 {
 #define nprobes a.nprobes		// number of probes available
 
 EXTERN int
-		kx[21],			// enemy sector locations
-		ky[21],
-		starch[9][9];	// star chart
+kx[21],			// enemy sector locations
+    ky[21],
+    starch[9][9];	// star chart
 
 EXTERN int fromcommandline; // Game start from command line options
 EXTERN int coordfixed; // Fix those dumb coordinates. 
 
 EXTERN char	passwd[10],		// Self Destruct password
-		*device[ndevice+1];
+       *device[ndevice+1];
 
 EXTERN PLANETS nulplanet;	// zeroed planet structure
 
 EXTERN double
-		kpower[21],		// enemy energy levels
-		kdist[21],		// enemy distances
-		kavgd[21],		// average distances
-		damage[ndevice+1],		// damage encountered
-		future[NEVENTS+1];		// future events
+kpower[21],		// enemy energy levels
+    kdist[21],		// enemy distances
+    kavgd[21],		// average distances
+    damage[ndevice+1],		// damage encountered
+    future[NEVENTS+1];		// future events
 
 EXTERN int iscore, iskill; // Common PLAQ
 EXTERN double perdate;
 
 typedef enum {FWON, FDEPLETE, FLIFESUP, FNRG, FBATTLE,
-              FNEG3, FNOVA, FSNOVAED, FABANDN, FDILITHIUM,
-			  FMATERIALIZE, FPHASER, FLOST, FMINING, FDPLANET,
-			  FPNOVA, FSSC, FSTRACTOR, FDRAY, FTRIBBLE,
-			  FHOLE
+    FNEG3, FNOVA, FSNOVAED, FABANDN, FDILITHIUM,
+    FMATERIALIZE, FPHASER, FLOST, FMINING, FDPLANET,
+    FPNOVA, FSSC, FSTRACTOR, FDRAY, FTRIBBLE,
+    FHOLE
 #ifdef CLOAKING
-   , FCLOAK
+        , FCLOAK
 #endif
 } FINTYPE ;
 
@@ -326,7 +326,7 @@ EXTERN char citem[24];
 
 /* Define future events */
 #define FSPY	0	// Spy event happens always (no future[] entry)
-					// can cause SC to tractor beam Enterprise
+// can cause SC to tractor beam Enterprise
 #define FSNOVA  1   // Supernova
 #define FTBEAM  2   // Commander tractor beams Enterprise
 #define FSNAP   3   // Snapshot for time warp
@@ -339,24 +339,24 @@ EXTERN char citem[24];
 #ifdef INCLUDED
 PLANETS nulplanet = {0};
 char *device[ndevice+1] = {
-	"",
-	"S. R. Sensors",
-	"L. R. Sensors",
-	"Phasers",
-	"Photon Tubes",
-	"Life Support",
-	"Warp Engines",
-	"Impulse Engines",
-	"Shields",
-	"Subspace Radio",
-	"Shuttle Craft",
-	"Computer",
-	"Transporter",
-	"Shield Control",
-	"Death Ray",
-	"D. S. Probe"
+    "",
+    "S. R. Sensors",
+    "L. R. Sensors",
+    "Phasers",
+    "Photon Tubes",
+    "Life Support",
+    "Warp Engines",
+    "Impulse Engines",
+    "Shields",
+    "Subspace Radio",
+    "Shuttle Craft",
+    "Computer",
+    "Transporter",
+    "Shield Control",
+    "Death Ray",
+    "D. S. Probe"
 #ifdef CLOAKING
-	,"Cloaking Device"
+        ,"Cloaking Device"
 #endif
 };									
 #endif

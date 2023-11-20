@@ -13,6 +13,7 @@ sst:  $(OFILES)
 
 clean:
 	rm $(OFILES)
+	rm sst
         
 $(OFILES):  $(HFILES)
 
