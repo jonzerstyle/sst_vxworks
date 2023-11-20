@@ -272,7 +272,6 @@ kx[21],			// enemy sector locations
     starch[9][9];	// star chart
 
 EXTERN int fromcommandline; // Game start from command line options
-EXTERN int coordfixed; // Fix those dumb coordinates. 
 
 EXTERN char	passwd[10],		// Self Destruct password
        *device[ndevice+1];

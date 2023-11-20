@@ -134,49 +134,26 @@ void lrscan(void) {
     }
     cramlc(1, quadx, quady);
     skip(1);
-    if (coordfixed)
-        for (y = quady+1; y >= quady-1; y--) {
-            for (x = quadx-1; x <= quadx+1; x++) {
-                if (x == 0 || x > 8 || y == 0 || y > 8)
-                    printf("   -1");
-                else {
-                    if (dsst.galaxy[x][y] > 999)
-                        printf(RED "%5d" RESET, dsst.galaxy[x][y]);
-                    else if (dsst.galaxy[x][y] >= 100)
-                        printf(YEL "%5d" RESET, dsst.galaxy[x][y]);
-                    else
-                        printf("%5d", dsst.galaxy[x][y]);
-                    // If radio works, mark star chart so
-                    // it will show current information.
-                    // Otherwise mark with current
-                    // value which is fixed. 
-                    starch[x][y] = damage[DRADIO] > 0 ? dsst.galaxy[x][y]+1000 :1;
-                }
+    for (x = quadx-1; x <= quadx+1; x++) {
+        for (y = quady-1; y <= quady+1; y++) {
+            if (x == 0 || x > 8 || y == 0 || y > 8)
+                printf("   -1");
+            else {
+                if (dsst.galaxy[x][y] > 999)
+                    printf(RED "%5d" RESET, dsst.galaxy[x][y]);
+                else if (dsst.galaxy[x][y] >= 100)
+                    printf(YEL "%5d" RESET, dsst.galaxy[x][y]);
+                else
+                    printf("%5d", dsst.galaxy[x][y]);
+                // If radio works, mark star chart so
+                // it will show current information.
+                // Otherwise mark with current
+                // value which is fixedsst. 
+                starch[x][y] = damage[DRADIO] > 0 ? dsst.galaxy[x][y]+1000 :1;
             }
-            putchar('\n');
         }
-    else
-        for (x = quadx-1; x <= quadx+1; x++) {
-            for (y = quady-1; y <= quady+1; y++) {
-                if (x == 0 || x > 8 || y == 0 || y > 8)
-                    printf("   -1");
-                else {
-                    if (dsst.galaxy[x][y] > 999)
-                        printf(RED "%5d" RESET, dsst.galaxy[x][y]);
-                    else if (dsst.galaxy[x][y] >= 100)
-                        printf(YEL "%5d" RESET, dsst.galaxy[x][y]);
-                    else
-                        printf("%5d", dsst.galaxy[x][y]);
-                    // If radio works, mark star chart so
-                    // it will show current information.
-                    // Otherwise mark with current
-                    // value which is fixedsst. 
-                    starch[x][y] = damage[DRADIO] > 0 ? dsst.galaxy[x][y]+1000 :1;
-                }
-            }
-            putchar('\n');
-        }
-
+        putchar('\n');
+    }
 }
 
 void dreprt(void) {
@@ -231,35 +208,6 @@ void chart(int nn) {
     prout("      1    2    3    4    5    6    7    8");
     prout("    ----------------------------------------");
     if (nn==0) prout("  -");
-    if (coordfixed)
-        for (j = 8; j >= 1; j--) {
-            printf("%d -", j);
-            for (i = 1; i <= 8; i++) {
-                if (starch[i][j] < 0) // We know only about the bases
-                    printf("  .1.");
-                else if (starch[i][j] == 0) // Unknown
-                    printf("  ...");
-                else if (starch[i][j] > 999) {  // Memorized value
-                    //printf("%5d", starch[i][j]-1000);
-                    if ((starch[i][j]-1000) > 999) 
-                        printf(RED "%5d" RESET, starch[i][j]-1000); 
-                    else if ((starch[i][j]-1000) >= 100) 
-                        printf(YEL "%5d" RESET, starch[i][j]-1000); 
-                    else
-                        printf(GRN "%5d" RESET, starch[i][j]-1000); 
-                }
-                else {
-                    if (dsst.galaxy[i][j] > 999) 
-                        printf(RED "%5d" RESET, dsst.galaxy[i][j]); 
-                    else if (dsst.galaxy[i][j] >= 100) 
-                        printf(YEL "%5d" RESET, dsst.galaxy[i][j]); 
-                    else
-                        printf(GRN "%5d" RESET, dsst.galaxy[i][j]); 
-                }
-            }
-            prout("  -");
-        }
-    else
         for (i = 1; i <= 8; i++) {
             printf("%d -", i);
             for (j = 1; j <= 8; j++) {
@@ -277,6 +225,7 @@ void chart(int nn) {
                         printf(GRN "%5d" RESET, starch[i][j]-1000); 
                 }
                 else {
+                    //printf("%5d", dsst.galaxy[i][j]); 
                     if (dsst.galaxy[i][j] > 999) 
                         printf(RED "%5d" RESET, dsst.galaxy[i][j]); 
                     else if (dsst.galaxy[i][j] >= 100) 
@@ -392,24 +341,13 @@ void srscan(int l) {
     for (i = 1; i <= 10; i++) {
         int jj = (k!=0 ? k : i);
         if (leftside) {
-            if (coordfixed) {
-                printf("%2d  ", 11-i);
-                for (j = 1; j <= 10; j++) {
-                    if (goodScan || (abs((11-i)-secty)<= 1 && abs(j-sectx) <= 1))
-                        colorPrint(quadsst[j][11-i]);
-                    //printf("%c ",quadsst[j][11-i]);
-                    else
-                        printf("- ");
-                }
-            } else {
-                printf("%2d  ", i);
-                for (j = 1; j <= 10; j++) {
-                    if (goodScan || (abs(i-sectx)<= 1 && abs(j-secty) <= 1))
-                        colorPrint(quadsst[i][j]);
-                    //printf("%c ",quadsst[i][j]);
-                    else
-                        printf("- ");
-                }
+            printf("%2d  ", i);
+            for (j = 1; j <= 10; j++) {
+                if (goodScan || (abs(i-sectx)<= 1 && abs(j-secty) <= 1))
+                    colorPrint(quadsst[i][j]);
+                //printf("%c ",quadsst[i][j]);
+                else
+                    printf("- ");
             }
         }
         if (rightside) {

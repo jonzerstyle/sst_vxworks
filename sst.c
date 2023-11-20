@@ -166,9 +166,9 @@ static void helpme(void) {
         };
     }
 
-    //fp = fmemopen(file, fsize, "r");
-    //  not supported on vxworks try using memDrvCreate instead
 #ifndef LINUX
+    //fp = fmemopen(file, fsize, "r");
+    //  not supported on vxworks use memDrvCreate instead
     fp = NULL;
     if (memDevCreate("/mem/sst_doc", &sst_doc, sst_doc_len) == OK) {
         fp = open("/mem/sst_doc", O_RDONLY, 0);
@@ -184,7 +184,6 @@ static void helpme(void) {
         return;
     }
     i = strlen(cmdbuf);
-    //printf("cmdbuf %s\n", cmdbuf);
     do {
 #ifndef LINUX
         int idx = 0;
@@ -490,18 +489,8 @@ int sst(int argc, char **argv) {
         char ch;
 #ifndef LINUX
         memDrv();
-#else
 #endif
         prelim();
-
-        if (argc > 1) { // look for -f option
-            if (strcmp(argv[1], "-f")== 0) {
-                coordfixed = 1;
-                argc--;
-                argv++;
-            }
-        }
-
 
         if (argc > 1) {
             fromcommandline = 1;

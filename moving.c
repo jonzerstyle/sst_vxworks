@@ -422,12 +422,6 @@ static void getcd(int isprobe, int akey) {
         } else {
             deltay = aaitem;
         }
-
-        if (coordfixed) {
-            double temp = deltax;
-            deltax = deltay;
-            deltay = -temp;
-        }
     }
     /* Check for zero movement */
     if (deltax == 0 && deltay == 0) {
