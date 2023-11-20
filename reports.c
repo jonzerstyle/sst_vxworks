@@ -122,7 +122,7 @@ void lrscan(void) {
 	if (damage[DLRSENS] != 0.0) {
 		/* Now allow base's sensors if docked */
 		if (condit != IHDOCKED) {
-			prout("LONG-RANGE SENSORS DAMAGED.");
+			prout(RED "LONG-RANGE SENSORS DAMAGED." RESET);
 			return;
 		}
 		skip(1);
@@ -140,7 +140,12 @@ void lrscan(void) {
 			if (x == 0 || x > 8 || y == 0 || y > 8)
 				printf("   -1");
 			else {
-				printf("%5d", dsst.galaxy[x][y]);
+                if (dsst.galaxy[x][y] > 999)
+				    printf(RED "%5d" RESET, dsst.galaxy[x][y]);
+                else if (dsst.galaxy[x][y] >= 100)
+				    printf(YEL "%5d" RESET, dsst.galaxy[x][y]);
+                else
+				    printf("%5d", dsst.galaxy[x][y]);
 				// If radio works, mark star chart so
 				// it will show current information.
 				// Otherwise mark with current
@@ -156,7 +161,12 @@ void lrscan(void) {
 			if (x == 0 || x > 8 || y == 0 || y > 8)
 				printf("   -1");
 			else {
-				printf("%5d", dsst.galaxy[x][y]);
+                if (dsst.galaxy[x][y] > 999)
+				    printf(RED "%5d" RESET, dsst.galaxy[x][y]);
+                else if (dsst.galaxy[x][y] >= 100)
+				    printf(YEL "%5d" RESET, dsst.galaxy[x][y]);
+                else
+				    printf("%5d", dsst.galaxy[x][y]);
 				// If radio works, mark star chart so
 				// it will show current information.
 				// Otherwise mark with current
@@ -229,10 +239,23 @@ void chart(int nn) {
 				printf("  .1.");
 			else if (starch[i][j] == 0) // Unknown
 				printf("  ...");
-			else if (starch[i][j] > 999) // Memorized value
-				printf("%5d", starch[i][j]-1000);
-			else
-				printf("%5d", dsst.galaxy[i][j]); // What is actually there (happens when value is 1)
+			else if (starch[i][j] > 999) {  // Memorized value
+				//printf("%5d", starch[i][j]-1000);
+                if ((starch[i][j]-1000) > 999) 
+				    printf(RED "%5d" RESET, starch[i][j]-1000); 
+                else if ((starch[i][j]-1000) >= 100) 
+				    printf(YEL "%5d" RESET, starch[i][j]-1000); 
+                else
+				    printf(GRN "%5d" RESET, starch[i][j]-1000); 
+            }
+			else {
+                if (dsst.galaxy[i][j] > 999) 
+				    printf(RED "%5d" RESET, dsst.galaxy[i][j]); 
+                else if (dsst.galaxy[i][j] >= 100) 
+				    printf(YEL "%5d" RESET, dsst.galaxy[i][j]); 
+                else
+				    printf(GRN "%5d" RESET, dsst.galaxy[i][j]); 
+            }
 		}
 		prout("  -");
 	}
@@ -244,10 +267,23 @@ void chart(int nn) {
 				printf("  .1.");
 			else if (starch[i][j] == 0) // Unknown
 				printf("  ...");
-			else if (starch[i][j] > 999) // Memorized value
-				printf("%5d", starch[i][j]-1000);
-			else
-				printf("%5d", dsst.galaxy[i][j]); // What is actually there (happens when value is 1)
+			else if (starch[i][j] > 999) {  // Memorized value
+				//printf("%5d", starch[i][j]-1000);
+                if ((starch[i][j]-1000) > 999) 
+				    printf(RED "%5d" RESET, starch[i][j]-1000); 
+                else if ((starch[i][j]-1000) >= 100) 
+				    printf(YEL "%5d" RESET, starch[i][j]-1000); 
+                else
+				    printf(GRN "%5d" RESET, starch[i][j]-1000); 
+            }
+			else {
+                if (dsst.galaxy[i][j] > 999) 
+				    printf(RED "%5d" RESET, dsst.galaxy[i][j]); 
+                else if (dsst.galaxy[i][j] >= 100) 
+				    printf(YEL "%5d" RESET, dsst.galaxy[i][j]); 
+                else
+				    printf(GRN "%5d" RESET, dsst.galaxy[i][j]); 
+            }
 		}
 		prout("  -");
 	}
@@ -259,7 +295,54 @@ void chart(int nn) {
 		skip(1);
 	}
 }
-		
+
+
+void colorPrint(char scanItem)
+{
+    switch (scanItem) {
+        case IHR:
+            printf(YEL);
+            break;
+        case IHK:
+            printf(RED);
+            break;
+        case IHC:
+            printf(RED);
+            break;
+        case IHS:
+            printf(RED);
+            break;
+        case IHP:
+            printf(GRN);
+            break;
+        case IHB:
+            printf(BLU);
+            break;
+        case IHE:
+            printf(BLU);
+            break;
+        case IHF:
+            printf(BLU);
+            break;
+        case IHT:
+            printf(MAG);
+            break;
+        case IHWEB:
+            printf(MAG);
+            break;
+        case IHBLANK:
+            printf(CYN);
+            break;
+        case IHSTAR:
+            printf(CYN);
+            break;
+        default:
+            break;
+    }
+    printf("%c ", scanItem);
+    printf(RESET);
+}
+
 		
 void srscan(int l) {
 	static char requests[][3] =
@@ -272,11 +355,11 @@ void srscan(int l) {
 			if (damage[DSRSENS] != 0) {
 				/* Allow base's sensors if docked */
 				if (condit != IHDOCKED) {
-					prout("SHORT-RANGE SENSORS DAMAGED");
+					prout(RED "SHORT-RANGE SENSORS DAMAGED" RESET);
 					goodScan=FALSE;
 				}
 				else
-					prout("[Using starbase's sensors]");
+					prout(YEL "[Using starbase's sensors]" RESET);
 			}
 			if (goodScan)
 				starch[quadx][quady] = damage[DRADIO]>0.0 ?
@@ -313,7 +396,8 @@ void srscan(int l) {
 				printf("%2d  ", 11-i);
 				for (j = 1; j <= 10; j++) {
 					if (goodScan || (abs((11-i)-secty)<= 1 && abs(j-sectx) <= 1))
-						printf("%c ",quadsst[j][11-i]);
+                        colorPrint(quadsst[j][11-i]);
+						//printf("%c ",quadsst[j][11-i]);
 					else
 						printf("- ");
 				}
@@ -321,7 +405,8 @@ void srscan(int l) {
 				printf("%2d  ", i);
 				for (j = 1; j <= 10; j++) {
 					if (goodScan || (abs(i-sectx)<= 1 && abs(j-secty) <= 1))
-						printf("%c ",quadsst[i][j]);
+                        colorPrint(quadsst[i][j]);
+						//printf("%c ",quadsst[i][j]);
 					else
 						printf("- ");
 				}
@@ -335,10 +420,10 @@ void srscan(int l) {
 				case 2:
 					if (condit != IHDOCKED) newcnd();
 					switch (condit) {
-						case IHRED: cp = "RED"; break;
-						case IHGREEN: cp = "GREEN"; break;
-						case IHYELLOW: cp = "YELLOW"; break;
-						case IHDOCKED: cp = "DOCKED"; break;
+						case IHRED: cp = RED "RED" RESET; break;
+						case IHGREEN: cp = GRN "GREEN" RESET; break;
+						case IHYELLOW: cp = YEL "YELLOW" RESET; break;
+						case IHDOCKED: cp = WHT "DOCKED" RESET; break;
 					}
 					printf(" Condition     %s", cp);
 #ifdef CLOAKING
@@ -355,9 +440,9 @@ void srscan(int l) {
 					printf(" Life Support  ");
 					if (damage[DLIFSUP] != 0.0) {
 						if (condit == IHDOCKED)
-							printf("DAMAGED, supported by starbase");
+							printf(YEL "DAMAGED, supported by starbase" RESET);
 						else
-							printf("DAMAGED, reserves=%4.2f", lsupres);
+							printf(RED "DAMAGED, reserves=%4.2f" RESET, lsupres);
 					}
 					else
 						printf("ACTIVE");
@@ -374,11 +459,11 @@ void srscan(int l) {
 				case 8:
 					printf(" Shields       ");
 					if (damage[DSHIELD] != 0)
-						printf("DAMAGED,");
+						printf(YEL "DAMAGED," RESET);
 					else if (shldup)
-						printf("UP,");
+						printf(GRN "UP," RESET);
 					else
-						printf("DOWN,");
+						printf(RED "DOWN," RESET);
 					printf(" %d%% %.1f units",
 						   (int)((100.0*shield)/inshld + 0.5), shield);
 					break;
