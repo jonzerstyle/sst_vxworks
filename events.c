@@ -141,7 +141,7 @@ void events(void) {
                 skip(1);
                 proutn("***");
                 crmshp();
-                prout(" caught in long range tractor beam--");
+                prout(YEL " caught in long range tractor beam--" RESET);
                 /* If Kirk & Co. screwing around on planet, handle */
                 atover(1); /* atover(1) is Grab */
                 if (alldone) return;
@@ -153,8 +153,8 @@ void events(void) {
                 if (iscraft==0) {
                     skip(1);
                     if (Rand() >0.5) {
-                        prout("Galileo, left on the planet surface, is captured");
-                        prout("by aliens and made into a flying McDonald's.");
+                        prout(YEL "Galileo, left on the planet surface, is captured");
+                        prout("by aliens and made into a flying McDonald's." RESET);
                         damage[DSHUTTL] = -10;
                         iscraft = -1;
                     }
@@ -186,7 +186,7 @@ void events(void) {
                         sheild(2); /* Shldsup */
                         shldchg=0;
                     }
-                    else prout("(Shields not currently useable.)");
+                    else prout(RED "(Shields not currently useable.)" RESET);
                 }
                 newqad(0);
                 /* Adjust finish time to time of tractor beaming */
@@ -236,11 +236,11 @@ void events(void) {
                 if (ipage==0) pausesst(1);
                 ipage = 1;
                 skip(1);
-                proutn("Lt. Uhura-  \"Captain, the starbase in");
+                proutn(YEL "Lt. Uhura-  \"Captain, the starbase in");
                 cramlc(1, batx, baty);
                 skip(1);
                 prout("   reports that it is under atttack and that it can");
-                proutn("   hold out only until stardate ");
+                proutn("   hold out only until stardate " RESET);
                 cramf(future[FCDBAS],1,1);
                 prout(".\"");
                 if (resting) {
@@ -291,10 +291,10 @@ void events(void) {
                     if (ipage==0) pausesst(1);
                     ipage = 1;
                     skip(1);
-                    prout("Lt. Uhura-  \"Captain, Starfleet Command reports that");
+                    prout(RED "Lt. Uhura-  \"Captain, Starfleet Command reports that");
                     proutn("   the starbase in");
                     cramlc(1, batx, baty);
-                    prout(" has been destroyed by");
+                    prout(" has been destroyed by" RESET);
                     if (isatb==2) prout("the Klingon Super-Commander");
                     else prout("a Klingon Commander");
                 }
@@ -338,12 +338,12 @@ void events(void) {
                             if (ipage==0) pausesst(1);
                             ipage = 1;
                             skip(1);
-                            proutn("Lt. Uhura-  \"The deep space probe ");
+                            proutn(BLU "Lt. Uhura-  \"The deep space probe ");
                             if (i < 1 ||i > 8 || j < 1 || j > 8)
                                 proutn("has left the galaxy");
                             else
                                 proutn("is no longer transmitting");
-                            prout(".\"");
+                            prout(".\"" RESET);
                         }
                         future[FDSPROB] = 1e30;
                         break;
@@ -508,7 +508,7 @@ void nova(int ix, int iy) {
                             dsst.basekl++;
                             newcnd();
                             crmena(1, IHB, 2, ii, jj);
-                            prout(" destroyed.");
+                            prout(RED " destroyed." RESET);
                             quadsst[ii][jj] = IHDOT;
                             break;
                         case IHE: /* Buffet ship */
@@ -521,7 +521,7 @@ void nova(int ix, int iy) {
                                     energy -= diff;
                                     shield = 0.0;
                                     shldup = 0;
-                                    prout("***Shields knocked out.");
+                                    prout(RED "***Shields knocked out." RESET);
                                     damage[DSHIELD] += 0.005*damfac*Rand()*diff;
                                 }
                             }
@@ -551,7 +551,7 @@ void nova(int ix, int iy) {
                             newcx = ii + ii - hits[mm][1];
                             newcy = jj + jj - hits[mm][2];
                             crmena(1, iquad, 2, ii, jj);
-                            proutn(" damaged");
+                            proutn(BLU " damaged" RESET);
                             if (newcx<1 || newcx>10 || newcy<1 || newcy>10) {
                                 /* can't leave quadrant */
                                 skip(1);
@@ -559,7 +559,7 @@ void nova(int ix, int iy) {
                             }
                             iquad1 = quadsst[newcx][newcy];
                             if (iquad1 == IHBLANK) {
-                                proutn(", blasted into ");
+                                proutn(BLU ", blasted into " RESET);
                                 crmena(0, IHBLANK, 2, newcx, newcy);
                                 skip(1);
                                 deadkl(ii, jj, iquad, newcx, newcy);
@@ -570,7 +570,7 @@ void nova(int ix, int iy) {
                                 skip(1);
                                 break;
                             }
-                            proutn(", buffeted to");
+                            proutn(BLU ", buffeted to" RESET);
                             cramlc(2, newcx, newcy);
                             quadsst[ii][jj] = IHDOT;
                             quadsst[newcx][newcy] = iquad;
@@ -597,7 +597,7 @@ void nova(int ix, int iy) {
     if (dist == 0.0) return;
     Time = 10.0*dist/16.0;
     skip(1);
-    prout("Force of nova displaces starship.");
+    prout(BLU "Force of nova displaces starship." RESET);
     iattak=2;	/* Eliminates recursion problem */
     lmove();
     Time = 10.0*dist/16.0;
@@ -653,12 +653,12 @@ void snova(int insx, int insy) {
             /* it isn't here, or we just entered (treat as inroute) */
             if (REPORTS) {
                 skip(1);
-                proutn("Message from Starfleet Command       Stardate ");
+                proutn(YEL "Message from Starfleet Command       Stardate ");
                 cramf(dsst.date, 0, 1);
                 skip(1);
                 proutn("     Supernova in");
                 cramlc(1, nqx, nqy);
-                prout("; caution advised.");
+                prout("; caution advised." RESET);
             }
         }
         else {
@@ -682,9 +682,9 @@ void snova(int insx, int insy) {
 
     if (insipient) {
         skip(1);
-        prouts("***RED ALERT!  RED ALERT!");
+        prouts(RED "***RED ALERT!  RED ALERT!");
         skip(1);
-        proutn("***Incipient supernova detected at");
+        proutn("***Incipient supernova detected at" RESET);
         cramlc(2, nsx, nsy);
         skip(1);
         nqx = quadx;
@@ -769,9 +769,9 @@ void snova(int insx, int insy) {
     if (dsst.remkl==0 && (nqx != quadx || nqy != quady)) {
         skip(2);
         if (insx == 0) prout("Lucky you!");
-        proutn("A supernova in");
+        proutn(GRN "A supernova in");
         cramlc(1, nqx, nqy);
-        prout(" has just destroyed the last Klingons.");
+        prout(" has just destroyed the last Klingons." RESET);
         finish(FWON);
         return;
     }

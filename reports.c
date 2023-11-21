@@ -5,20 +5,20 @@
 
 void attakreport(void) {
     if (future[FCDBAS] < 1e30) {
-        proutn("Starbase in ");
+        proutn(YEL "Starbase in ");
         cramlc(1, batx, baty);
         prout(" is currently under attack.");
         proutn("It can hold out until Stardate ");
         cramf(future[FCDBAS], 0,1);
-        prout(".");
+        prout("." RESET);
     }
     if (isatb == 1) {
-        proutn("Starbase in ");
+        proutn(YEL "Starbase in ");
         cramlc(1, dsst.isx, dsst.isy);
         prout(" is under Super-commander attack.");
         proutn("It can hold out until Stardate ");
         cramf(future[FSCDBAS], 0, 1);
-        prout(".");
+        prout("." RESET);
     }
 }
 
@@ -175,7 +175,7 @@ void dreprt(void) {
             skip(1);
         }
     }
-    if (!jdam) prout("All devices functional.");
+    if (!jdam) prout(GRN "All devices functional." RESET);
 }
 
 void chart(int nn) {
@@ -426,7 +426,7 @@ void eta(void) {
     int wfl;
     double ttime, twarp, tpower;
     if (damage[DCOMPTR] != 0.0) {
-        prout("COMPUTER DAMAGED, USE A POCKET CALCULATOR.");
+        prout(RED "COMPUTER DAMAGED, USE A POCKET CALCULATOR." RESET);
         skip(1);
         return;
     }
